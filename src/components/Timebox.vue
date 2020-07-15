@@ -52,8 +52,8 @@
             displayedTime() {
                 if (this.secondsUntilStart > 0) {
                     return "−" + this.formatTime(this.secondsUntilStart)
-                } else if (this.secondsSinceEnd > 0) {
-                    return "+" + this.formatTime(this.secondsSinceEnd)
+                } else if (this.secondsSinceEnd >= 0) {
+                    return "+" + this.formatTime(this.secondsSinceEnd + 1)
                 } else {
                     return this.formatTime(this.secondsUntilEnd)
                 }
@@ -62,8 +62,8 @@
 
         created() {
             Piecon.setOptions({
-                color: '#f00',
-                background: '#f0f0f0',
+                color: '#f0f0f0',
+                background: '#f00',
                 shadow: '#f0f0f0'
             });
 
@@ -92,7 +92,12 @@
             update() {
                 this.now = new Date().getTime()
                 document.title = this.displayedTime
-                Piecon.setProgress(this.fractionFinished * 100)
+
+                if (this.secondsUntilStart > 0) {
+                    Piecon.setProgress(100)
+                } else {
+                    Piecon.setProgress(this.fractionFinished * 100)
+                }
             }
         }
     }
