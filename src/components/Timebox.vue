@@ -1,15 +1,15 @@
 <template>
     <div id="timebox">
-        <div v-if="secondsUntilStart >= 0" class="pending">
-            −{{formatTime(secondsUntilStart)}}
+        <div v-if="secondsUntilStart > 0" class="pending">
+            {{displayedTime}}
         </div>
 
-        <div v-else-if="secondsSinceEnd >= 0" class="time-up">
-            +{{formatTime(secondsSinceEnd)}}
+        <div v-else-if="secondsSinceEnd > 0" class="time-up">
+            {{displayedTime}}
         </div>
 
         <div v-else class="in-progress">
-            {{formatTime(secondsUntilEnd)}}
+            {{displayedTime}}
         </div>
 
     </div>
@@ -31,7 +31,6 @@
         },
 
         computed: {
-
             secondsUntilStart() {
                 return Math.floor((this.start - this.now) / 1000)
             },
@@ -42,12 +41,23 @@
 
             secondsUntilEnd() {
                 return Math.floor((this.end - this.now) / 1000)
+            },
+
+            displayedTime() {
+                if (this.secondsUntilStart > 0) {
+                    return "−" + this.formatTime(this.secondsUntilStart)
+                } else if (this.secondsSinceEnd > 0) {
+                    return "+" + this.formatTime(this.secondsSinceEnd)
+                } else {
+                    return this.formatTime(this.secondsUntilEnd)
+                }
             }
         },
 
         created() {
             setInterval(() => {
                 this.now = new Date().getTime()
+                document.title = this.displayedTime
             }, 1000)
         },
 
