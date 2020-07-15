@@ -16,6 +16,8 @@
 </template>
 
 <script>
+    import Piecon from 'piecon'
+
     export default {
         name: "Timebox",
 
@@ -43,6 +45,10 @@
                 return Math.floor((this.end - this.now) / 1000)
             },
 
+            fractionFinished() {
+                return (this.now - this.start) / (this.end - this.start)
+            },
+
             displayedTime() {
                 if (this.secondsUntilStart > 0) {
                     return "−" + this.formatTime(this.secondsUntilStart)
@@ -55,9 +61,16 @@
         },
 
         created() {
+            Piecon.setOptions({
+                color: '#f00',
+                background: '#f0f0f0',
+                shadow: '#f0f0f0'
+            });
+
             setInterval(() => {
                 this.now = new Date().getTime()
                 document.title = this.displayedTime
+                Piecon.setProgress(this.fractionFinished * 100)
             }, 1000)
         },
 
