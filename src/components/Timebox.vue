@@ -67,11 +67,8 @@
                 shadow: '#f0f0f0'
             });
 
-            setInterval(() => {
-                this.now = new Date().getTime()
-                document.title = this.displayedTime
-                Piecon.setProgress(this.fractionFinished * 100)
-            }, 1000)
+            this.update()
+            setInterval(this.update, 1000)
         },
 
         methods: {
@@ -91,6 +88,11 @@
                 output += zeroPad(seconds)
 
                 return output
+            },
+            update() {
+                this.now = new Date().getTime()
+                document.title = this.displayedTime
+                Piecon.setProgress(this.fractionFinished * 100)
             }
         }
     }
