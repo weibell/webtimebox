@@ -1,6 +1,6 @@
 # webtimebox
 
-Displays a meetings remaining
+A [timeboxing](https://en.wikipedia.org/wiki/Timeboxing) tool for displaying a meeting's remaining time in your browser/tab icon.
 
 Usage example: `https://<host>/#08:00-10:00`
 
