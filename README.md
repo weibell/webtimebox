@@ -1,4 +1,9 @@
-# webtimebox.de
+# webtimebox
+
+Displays a meetings remaining
+
+Usage example: `https://<host>/#08:00-10:00`
+
 
 ## Project setup
 ```
